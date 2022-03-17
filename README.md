@@ -1,312 +1,70 @@
-# Conditional Rendering
+# Getting Started with Create React App
 
-![conditional](https://i.imgur.com/DPsrU0G.png)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Overview
+## Available Scripts
 
-In this lesson we'll be covering conditional rendering with React by building a small greeting application. Conditional rendering is important because it allows us to control the flow of user experience in an application.
+In the project directory, you can run:
 
-## Lesson Objectives
+### `npm start`
 
-- Understand several methods for conditional rendering with React components
-- Use conditional rendering with state to affect real time changes in our application's UI
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## Getting Started
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-- `Fork` and `clone` this repository and `cd` into the new directory
-- Create a new React app with `npx create-react-app .`
-- Run `npm start` to open your app in the browser
-- Within `src`, create a `components` folder to store components we'll be creating in this lesson
+### `npm test`
 
-## Instructions
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### Setup
+### `npm run build`
 
-In React, you can create distinct components that encapsulate behavior you need. Then, you can render only some of them, depending on the state of your application.
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Conditional rendering in React works the same way conditions work in JavaScript. Use JavaScript operators like `if` or `?` to create elements representing the current state, and let React update the UI to match them.
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-We'll start by adding two components into our `components` directory:
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-#### UserGreeting.jsx
+### `npm run eject`
 
-```jsx
-const UserGreeting = () => {
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-  return <h1>Welcome back!</h1>
-}
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-export default UserGreeting
-```
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-#### GuestGreeting.jsx
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-```jsx
-const GuestGreeting = () => {
+## Learn More
 
-  return <h1>Please sign up.</h1>
-}
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-export default GuestGreeting
-```
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-We’ll then create a Greeting component that displays either of these components depending on whether a user is logged in:
+### Code Splitting
 
-#### Greeting.jsx
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-```jsx
-import UserGreeting from './UserGreeting'
-import GuestGreeting from './GuestGreeting'
+### Analyzing the Bundle Size
 
-const Greeting = (props) => {
-  const isLoggedIn = props.isLoggedIn
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-  if (isLoggedIn) {
-    return <UserGreeting />
-  }
-  return <GuestGreeting />
-}
+### Making a Progressive Web App
 
-export default Greeting
-```
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-Make sure to import our `Greeting` component into `App.js` so it is rendered and pass props to it for the `isLoggedIn` boolean value.
+### Advanced Configuration
 
-#### App.js
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-```js
-import Greeting from './components/Greeting'
+### Deployment
 
-const App = () => {
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-  return <Greeting isLoggedIn={false} />
-}
+### `npm run build` fails to minify
 
-export default App
-```
-
-This example renders a different greeting depending on the value of `isLoggedIn` prop.
-
-- Which greeting is our component rendering?
-- Now let's try changing value of `isLoggedIn` being passed from `App.js` to `true`
-- Has anything changed with our rendered components?
-- Wait, where did `<GuestGreeting />` go?
-
-![](https://media1.tenor.com/images/cfa7b21f58649ce86b82ae3c7fdc0485/tenor.gif)
-
-### Element Variables
-
-You can use variables to store elements. This can help you conditionally render a part of the component while the rest of the output doesn’t change.
-
-Let's create two more new components in our `components` folder representing `Logout` and `Login` buttons:
-
-#### LoginButton.jsx
-
-```jsx
-const LoginButton = (props) => {
-
-  return <button onClick={props.onClick}>Login</button>
-}
-
-export default LoginButton
-```
-
-#### LogoutButton.jsx
-
-```jsx
-const LogoutButton = (props) => {
-
-  return <button onClick={props.onClick}>Log Out</button>
-}
-
-export default LogoutButton
-```
-
-In the example below, we will now add `state` to our `App` using the `useState` hook to track our `isLoggedIn` variable. We'll also import our two button components from above and attach methods to set the state of `isLoggedIn` with `onClick` event listeners.
-
-- In the `App` component, we'll create a variable `button` that conditionally renders one of our button components depending on whether the user `isLoggedIn` or not.
-- `App.js` will now render either `<LoginButton />` or `<LogoutButton />` depending on its current state.
-- It will also render a `<Greeting />` from the previous example:
-
-```js
-import Greeting from './components/Greeting'
-import LoginButton from './components/LoginButton'
-import LogoutButton from './components/LogoutButton'
-
-const App = () => {
-  const [isLoggedIn, toggleLogin] = useState(false)
-
-  const handleLoginClick = () => toggleLogin(true)
-
-  const handleLogoutClick = () => toggleLogin(false)
-
-  let button
-
-  if (isLoggedIn) {
-    button = <LogoutButton onClick={handleLogoutClick} />
-  } else {
-    button = <LoginButton onClick={handleLoginClick} />
-  }
-
-  return (
-    <div>
-      <Greeting isLoggedIn={isLoggedIn} />
-      {button}
-    </div>
-  )
-}
-
-export default App
-```
-
-While declaring a variable and using an if statement is a fine way to conditionally render a component, sometimes you might want to use a shorter syntax. There are a few ways to inline conditions in JSX, explained below.
-
-### Inline If with Logical && Operator
-
-![and](https://media.tenor.co/images/bf504f6a2b7ad83c2f78dfeee2d2ede0/raw)
-
-You may embed any expressions in JSX by wrapping them in curly braces. This includes the JavaScript logical `&&` operator. It can be handy for conditionally including an element.
-
-Let's add one more component to our `components` folder
-
-#### Mailbox.jsx
-
-```jsx
-const Mailbox = (props) => {
-  const unreadMessages = props.unreadMessages
-
-  return (
-    <div>
-      <h1>Hello!</h1>
-      {unreadMessages.length > 0 && (
-        <h2>You have {unreadMessages.length} unread messages.</h2>
-      )}
-    </div>
-  )
-}
-
-export default Mailbox
-```
-
-Now we'll import it within our `App.js` component.
-
-```js
-import Mailbox from './components/Mailbox'
-```
-
-Before we render `Mailbox`, we'll need to add another state variable to pass props into `Mailbox`.
-
-```js
-const [unreadMessages, setUnreadMessages] = useState([
-  'Hello',
-  'World',
-  'This is Doordash with your order'
-])
-```
-
-Finally, inside of `App.js `, we'll add a variable `mailbox` and set it equal to another inline logical && operator that will only render `<Mailbox />` if the user is logged in.
-
-- Don't forget to call in `{mailbox}` inside your return statement.
-
-```js
-// App.js
-
-let button
-const mailbox = isLoggedIn && <Mailbox unreadMessages={unreadMessages} />
-
-if (isLoggedIn) {
-  button = <LogoutButton onClick={handleLogoutClick} />
-} else {
-  button = <LoginButton onClick={handleLoginClick} />
-}
-
-...
-```
-
-<details>
-  <summary>
-    Your <code>App.js</code> should look like this when you're finished
-  </summary>
-  
-```js
-import './styles/App.css'
-import Greeting from './components/Greeting'
-import LoginButton from './components/LoginButton'
-import LogoutButton from './components/LogoutButton'
-import Mailbox from './components/Mailbox'
-
-const App = () => {
-  const [isLoggedIn, toggleLogin] = useState(false)
-
-  const handleLoginClick = () => toggleLogin(true)
-
-  const handleLogoutClick = () => toggleLogin(false)
-
-  let button
-  const mailbox = isLoggedIn && <Mailbox unreadMessages={unreadMessages} />
-
-  if (isLoggedIn) {
-    button = <LogoutButton onClick={handleLogoutClick} />
-  } else {
-    button = <LoginButton onClick={handleLoginClick} />
-  }
-
-  return (
-    <div>
-      <Greeting isLoggedIn={isLoggedIn} />
-      {button}
-    </div>
-  )
-}
-
-export default App
-```
-</details>
-
-So why does the logical && operator work with conditional rendering in React?
-
-It works because in JavaScript, `true && expression` always evaluates to `expression`, and `false && expression` always evaluates to `false`.
-
-Therefore, if the condition is `true`, the element right after `&&` will appear in the output. If it is `false`, React will ignore and skip it.
-
-### Inline If-Else with A Ternary Operator
-
-![ternary](https://i.pinimg.com/originals/85/d9/26/85d9268373fde414bdc43cb09b40de8b.gif)
-
-Another method for conditionally rendering elements inline is to use the JavaScript conditional operator `condition ? true : false`.
-
-To try this out, let's add a `<p>` tag inside the return of `App.js`. This `<p>` tag will tell us whether the user is logged in or not depending on the outcome of the ternary statement:
-
-```js
-// App.js
-return (
-    <div>
-      <Greeting isLoggedIn={isLoggedIn} />
-      <p>The user is <b>{isLoggedIn ? 'currently' : 'not'}</b> logged in.</p>
-      {mailbox}
-      {button}
-    </div>
-  )
-```
-
-### Preventing Component from Rendering
-
-In rare cases you might want a component to hide itself even though it was rendered by another component. To do this return null instead of its render output.
-
-## Recap
-
-With React we are able to control the flow of rendering and user experience with conditional JavaScript statements. Statements often used in React apps to conditionally render components include:
-
-- `if` / `else` Statements
-- Logical `&&` Operators
-- Ternary Operators
-- `switch` Statements
-
-Make sure to use conditional rendering to create more controlled applications in React!
-
-![Burn](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F1ofR3QioNy264%2Fgiphy.gif&f=1&nofb=1)
-
-## Resources
-
-- [Conditional Rendering React Repository](https://github.com/reactjs/reactjs.org/tree/master/content/docs/conditional-rendering.md)
-- [React Conditional Rendering Docs](https://reactjs.org/docs/conditional-rendering.html)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
